@@ -1,0 +1,14 @@
+# arquivos compilados 
+Binaries/
+
+#Ele vai gerar de novo em outras maquinas a maioria dos arquivos abaixo
+Intermediate/
+Saved/
+Content/StarterContent/
+
+*.sln
+*.sdf
+*.opensdf
+*.suo
+*.db
+*.opendb

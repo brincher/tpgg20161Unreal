@@ -16,6 +16,10 @@ AMyCharacter::AMyCharacter()
 	Camera = CreateDefaultSubobject<UCameraComponent>
 		(TEXT("Camera"));
 	Camera->SetupAttachment(CameraBoom);
+
+	// Initialise the can crouch property  
+	GetCharacterMovement()->GetNavAgentPropertiesRef().bCanCrouch = true;
+
 }
 
 // Called when the game starts or when spawned
@@ -39,7 +43,11 @@ void AMyCharacter::SetupPlayerInputComponent(class UInputComponent* InputCompone
 
 	InputComponent->BindAxis("Move", this, &AMyCharacter::Move);
 	InputComponent->BindAxis("Side", this, &AMyCharacter::MoveSides);
-	InputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump, 
+	InputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
+
+	InputComponent->BindAction("Crouch", IE_Pressed, this, &AMyCharacter::OnCrouch);
+	InputComponent->BindAction("Crouch", IE_Released, this, &AMyCharacter::OnUncrouch);
+
 }
 
 // MÉTODO QUE MOVIMENTA O PERSONAGEM PARA A FRENTE E PARA TRÁS
@@ -57,8 +65,31 @@ void AMyCharacter::MoveSides(float Value) {
 }
 
 
-// MÉTODO QUE FAZ O PERSONAGEM PULAR
-void AMyCharacter::Jump(bool false) {
-	AddMovementInput(Jump, Value);
+// MÉTODO QUE FAZ O PERSONAGEM AGACHAR. UM CLIQUE AGAIXA, OUTRO LEVANTA
+/* 
+void AMyCharacter::ToggleCrouch()
+{
+	// If we are crouching then CanCrouch will return false. If we cannot crouch then calling Crouch() wont do anything  
+	if (CanCrouch() == true)
+	{
+		Crouch();
+	}
+	else
+	{
+		UnCrouch();
+	}
+} */
+
+// MÉTODO QUE FAZ O PERSONAGEM AGACHAR. AGAIXA ENQUANTO A TECLA FOR PRESSIONADA
+
+void AMyCharacter::OnCrouch() {
+
+	Super::Crouch();
 }
+
+void AMyCharacter::OnUncrouch() {
+
+	Super::UnCrouch();
+}
+
 

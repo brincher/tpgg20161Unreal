@@ -23,6 +23,8 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 
+
+
 	
 private: 
 	// Permite visualizar e editar as características do componente que está logo abaixo.
@@ -40,7 +42,13 @@ private:
 
 	void MoveSides(float Value);
 
-	void Jump(bool Value);
+	void OnCrouch();
+
+	void OnUncrouch();
+
+
+	
+
 
 
 	
